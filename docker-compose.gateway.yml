@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  gateway-api:
+    build: .
+    container_name: code-executor-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - REDIS_HOST=promoted-eel-98869.upstash.io
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=gQAAAAAAAYI1AAIgcDFkZGEzZjlkZDI0MTg0NDQyODgzMjNiYjM4ZTlhNDAzYw
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    restart: always

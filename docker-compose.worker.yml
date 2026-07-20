@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  execution-worker:
+    build: .
+    container_name: code-executor-worker
+    command: ["node", "dist/worker.js"]
+    volumes:
+      # Exposes the local worker VM's Docker socket
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - NODE_ENV=production
+      - REDIS_HOST=promoted-eel-98869.upstash.io
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=gQAAAAAAAYI1AAIgcDFkZGEzZjlkZDI0MTg0NDQyODgzMjNiYjM4ZTlhNDAzYw
+      - CONCURRENCY=4
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 512M
+    restart: always
